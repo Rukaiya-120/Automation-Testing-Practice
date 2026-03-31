@@ -1,4 +1,4 @@
-package automationTeasting;
+package automationTeasting_main;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
@@ -21,16 +21,21 @@ public class test {
 		driver.get("https://app.peopledesk.io/");
 		driver.manage().window().maximize();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        logIn(driver,wait);
-//        wait.until(ExpectedConditions.elementToBeClickable(
-//                By.xpath("//button")
-//        )).click();
-
-        supervisor(driver,wait);
-
+        
         String title = driver.getTitle();
         System.out.println("The tiltle of the test website is: "+title);
+        
+
+        logIn(driver,wait);
+
+        supervisor(driver,wait);
+        
+        //changePass( driver,  wait);
+        
+        logout(driver,wait);
+       
+        
+
     	System.out.println("Test Completed Successfully");
         
 	}
@@ -39,17 +44,12 @@ public class test {
 	{
         // Input field
 		
-	        wait.until(ExpectedConditions.visibilityOfElementLocated(
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(
 	                By.cssSelector("input[type='text']")
 	        )).sendKeys("31026");
-/**	        WebElement errorMsg = wait.until(
-	        	    ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'User id is required')]"))
-	        	);
-	        	System.out.println(errorMsg.getText());**/
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.cssSelector("#root > div > div:nth-child(1) > div > form > div.auth-wrapper-page > div > div > div.auth-login-body > div > div:nth-child(2) > div > div > div > input")
-        )).sendKeys("betopia2202");
+                By.name("password")
+        )).sendKeys("betopia2201");
         driver.findElement(By.cssSelector(".btn")).submit();
 	}
 	
@@ -64,6 +64,37 @@ public class test {
 		       By.xpath("//*[@id=\"30568\"]")
 		   )).click();
 	}
+	
+	public static void changePass(WebDriver driver, WebDriverWait wait) {
+        WebElement image = driver.findElement(By.xpath("//img[@alt='Profile']"));
+		 
+		image.click();
+		WebElement changePass = driver.findElement(By.xpath("//h3[contains(text(),'Change Password')]"));
+		changePass.click();
+
+		WebElement oldPass = wait.until(
+		    ExpectedConditions.visibilityOfElementLocated(By.name("oldPassword"))
+		);
+		WebElement newPass =  wait.until(
+			    ExpectedConditions.visibilityOfElementLocated(By.name("newPassword")));
+		WebElement confirmPass =  wait.until(
+			    ExpectedConditions.visibilityOfElementLocated(By.name("confirmPassword")));
+		oldPass.sendKeys("betopia2202");
+		newPass.sendKeys("betopia2201");
+		confirmPass.sendKeys("betopia2201");
+		driver.findElement(By.xpath("//button[contains(text(),'Save')]")).submit();
+		driver.findElement(By.xpath("//button[contains(text(),'Reset')]")).submit();
+		
+	}
+
+	
+	public static void logout(WebDriver driver, WebDriverWait wait) {
+        WebElement image = driver.findElement(By.xpath("//img[@alt='Profile']"));
+		image.click();
+		WebElement logoutClick = driver.findElement(By.xpath("//h3[contains(text(),'Log Out')]"));
+		logoutClick.click();
+	}
+
 
 
 
