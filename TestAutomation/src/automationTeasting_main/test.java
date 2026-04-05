@@ -12,8 +12,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class test {
+import base.baseTest;
+import pages.dashboardPage;
+import pages.loginPage;
+import pages.profilePage;
 
+/**
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Hello World");
@@ -96,6 +100,36 @@ public class test {
 	}
 
 
+**/
+	
+	public class test extends baseTest {
+
+	    public static void main(String[] args) {
+
+	        test t = new test();
+	        t.setup();
+
+	        // Create Page Object instances
+	        loginPage login = new loginPage(driver);
+	        dashboardPage dashboard = new dashboardPage(driver);
+	        profilePage profile = new profilePage(driver);
+
+	        // Step 1: Login
+	        login.login("31026", "betopia2201");
+
+	        // Step 2: Select Supervisor
+	        dashboard.selectSupervisor("Sup");
+
+	        // Step 3: Change Password (optional)
+	        // profile.changePassword("oldPass", "newPass");
+
+	        // Step 4: Logout
+	        profile.logout();
+
+	        t.tearDown();
+
+	        System.out.println("Test Completed Successfully");
+	    }
+	}
 
 
-}
