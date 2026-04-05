@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug automationTeasting_main.test",
+      "request": "launch",
+      "mainClass": "automationTeasting_main.test",
+      "projectName": "PeopleDesk_TestAutomation",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
